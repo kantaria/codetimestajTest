@@ -18,8 +18,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: #000 url(../img/header-bg.jpg) no-repeat center center/cover;
-    background-attachment: fixed;
+    background: #000 url(../img/header-bg.jpg) no-repeat fixed center center;
     min-height: 100vh;
 }
 .header__title {
@@ -60,5 +59,6 @@ body {
     min-width: 215px;
     text-decoration: none;
     border: 1px solid #fff;
-    padding: 8px 0 ;
+    padding: 8px 0;
 }
+
