@@ -1,12 +1,11 @@
-const
-const
 const gulp = require('gulp'),
 	minifyCSS = require('gulp-minify-css'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
 	prefix = require('gulp-autoprefixer'),
-	sass = require('gulp-sass'),
 	browserSync = require('browser-sync').create(),
+	htmlmin = require('gulp-htmlmin'),
+	imagemin = require('gulp-imagemin'),
 	reload      = browserSync.reload;
 // Save a reference to the `reload` method
 
@@ -29,6 +28,18 @@ gulp.task('js', function(){
 		.pipe(uglify())
 		.pipe(gulp.dest('dist/js'))
 });
+// Image compressor
+gulp.task('image', function() {
+	return gulp.src('img/*')
+		.pipe(imagemin())
+		.pipe(gulp.dest('dist/img'))
+})
+// HTML min
+gulp.task('minify', () => {
+	return gulp.src('*.html')
+		.pipe(htmlmin({ collapseWhitespace: true }))
+		.pipe(gulp.dest('dist'));
+});
 // CSS concat & minify
 gulp.task('styles', function(){
 	return gulp.src('css/**/*.css')
@@ -38,7 +49,7 @@ gulp.task('styles', function(){
 		.pipe(gulp.dest('dist/css'))
 });
 
-gulp.task('default', function() {
-	gulp.run('styles')
-	gulp.run('js')
+gulp.task('default', function(cb) {
+	gulp.series('styles', 'js')
+	cb();
 });
